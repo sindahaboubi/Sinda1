@@ -1,0 +1,59 @@
+<div class="page">
+  <nav class="filtrer">
+    <form [formGroup]="FormTri" (ngSubmit)="onSubmit()">
+      <br><div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon3">Catégorie du service</span><br>
+      </div>
+        <div *ngFor="let c of categories">
+          <input type="radio" class="option-input radio" id="cat" formControlName="categorie" [value]="c.id"><span margin="2%">{{c.libelle}} </span>
+        </div>
+
+        <br><div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3">Prix maximal du service</span>
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" formControlName="prixMax" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+        </div>
+
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3">Prix minimal du service</span>
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" formControlName="prixMin" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+        </div>
+
+    <input type="checkbox" class="option-input" formControlName="choix" [value]="1">
+    <span>Supprimer mon choix </span><br>
+    <br>
+        <button type="submit" class="btn btn-success btnafficher" [disabled]="FormTri.invalid" >
+        Afficher
+        </button>
+        </form>
+    </nav><br>
+    <nav class="btnArtiste" *ngIf="id_artiste!=null">
+      <button routerLink="/poster">Publier un nouveau service</button>
+    </nav>
+    
+  
+    <div class="container mt-5 mb-5">
+      <div class="row" *ngIf="tabServiceFiltre?.length==tabService?.length">
+          <div class="col-md-3 liste" *ngFor="let ser of tabService;index as i">
+              <div class="foodbox mt-3 mb-3">
+                  <img class="imag" [src]="ser.image">                
+                  <div style="text-align:center;color:rgb(67, 67, 71)">
+                    <br><span *ngFor="let ar of artistes">
+                      <h5 *ngIf="ar.id==ser.idArtiste">{{ar.prenom}} {{ar.nom}}</h5>
+                    </span>
+                    <span>{{ser.titre}}</span><br>
+                    <span *ngFor="let c of categories">
+                      <span *ngIf="c.id==ser.cat" class="categorie">{{c.libelle}}</span>
+                    </span>
+                    <br>
+                    <p>{{ser.prix}} DT</p>
+                    <button class="btn btn-primary" [routerLink]="['/liste',ser.id]"><i class="bi bi-plus-square"></i>  Détails</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>  
+</div>
